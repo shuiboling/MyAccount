@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EE8ECD</color>
+    <color name="colorPrimaryDark">#DD6DB7</color>
+    <color name="colorAccent">#EE8ECD</color>
+    <color name="color_pink_dark">#C1D81BA9</color>
+    <color name="color_pink_dark_1">#A9D81BA9</color>
+    <color name="color_81D81BA9">#EE8ECD</color>
+    <color name="color_pink_lowst">#56D81BA9</color>
+    <color name="color_e1faf7">#e1faf7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="color_8AC47592">#8AC47592</color>
+    <color name="color_4CAF50">#4CAF50</color>
+    <color name="color_03A9F4">#03A9F4</color>
+    <color name="color_gray">#e6e6e6</color>
+    <color name="black">#000000</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_fdfdfd">#fdfdfd</color>
+    <color name="color_red">#fa5a5a</color>
+    <color name="color_8d8d8d">#8d8d8d</color>
+    <color name="color_808080">#808080</color>
+    <color name="color_e6e6e6">#e6e6e6</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_00c2ab">#00c2ab</color>
+    <color name="color_light_pink">#FFEDABD6</color>
+    <color name="color_light_pink_light">#FCF6EBF2</color>
+    <color name="color_9a9a9a">#9a9a9a</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_blue">#77CEF1</color>
+    <color name="color_blue_light">#D6ECF4</color>
+    <color name="color_purple">#C3B0D6</color>
+    <color name="color_d2d689">#d2d689</color>
+    <color name="color_89d7bc">#89d7bc</color>
+    <color name="color_a85658">#A85658</color>
+    <color name="color_92c8e0">#92c8e0</color>
+    <color name="color_3eba43">#3EBA43</color>
+    <color name="color_f6c2e4">#F6C2E4</color>
+
+
+
+
+
+</resources>

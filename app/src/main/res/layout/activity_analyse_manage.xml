@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_light_pink_light">
+
+    <include layout="@layout/layout_title"/>
+
+    <com.reihiei.firstapp.widget.LoadPageLayout
+        android:id="@+id/load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_corner"
+        android:backgroundTint="@color/white"
+        android:paddingTop="15dp"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总投资(元)"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv1" />
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintRight_toLeftOf="@id/guideline2"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="12dp"-->
+<!--                    android:layout_marginRight="12dp"-->
+<!--                    android:text="理财:" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/in"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginRight="12dp"-->
+<!--                    android:text=""-->
+<!--                    android:layout_toRightOf="@id/tv2"/>-->
+<!--            </RelativeLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintLeft_toRightOf="@id/guideline2"-->
+<!--                app:layout_constraintRight_toRightOf="parent">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="12dp"-->
+<!--                    android:text="基金:" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/out"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="12dp"-->
+<!--                    android:text=""-->
+<!--                    android:layout_toRightOf="@id/tv3"/>-->
+
+<!--            </RelativeLayout>-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/guideline2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintGuide_percent="0.5" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <include layout="@layout/layout_stamp_line"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_module"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/color_light_pink_light">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@drawable/shape_corner_bottom"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="上拉查看收支分析"
+                android:paddingVertical="10dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
+
+        </FrameLayout>
+
+    </com.reihiei.firstapp.widget.LoadPageLayout>
+
+</LinearLayout>

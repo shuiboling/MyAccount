@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"/>
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入事件标题"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/tv1"
+            android:padding="15dp"
+            android:gravity="right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"/>
+
+        <EditText
+            android:id="@+id/et_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入描述内容"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv2"
+            android:gravity="right"
+            android:padding="15dp"
+            android:textSize="15dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全天事件"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"/>
+
+        <Switch
+            android:id="@+id/mSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:padding="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始时间"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="开始时间"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv"
+            android:layout_toRightOf="@id/tv3"
+            android:gravity="center|right"
+            android:textSize="15dp"
+            android:textColor="@color/color_666666"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束时间"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"/>
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvEndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="结束时间"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv1"
+            android:layout_toRightOf="@id/tv4"
+            android:gravity="right"
+            android:textSize="15dp"
+            android:textColor="@color/color_666666"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提醒"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_333333"/>
+
+        <ImageView
+            android:id="@+id/iv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_navigate_next_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/mention"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="无"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv2"
+            android:layout_toRightOf="@id/tv5"
+            android:gravity="right"
+            android:textSize="15dp"
+            android:layout_marginLeft="100dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请确认已打开系统日历的通知权限"
+        android:padding="15dp"
+        android:textSize="12dp"
+        android:textColor="@color/color_666666"
+        android:gravity="right" />
+
+    <android.widget.Button
+        android:id="@+id/writeEventButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新增提醒"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/shape_corner"
+        android:layout_marginTop="100dp"/>
+
+    <android.widget.Button
+        android:id="@+id/updateEventButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="更新提醒"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/shape_corner"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"/>
+
+    <android.widget.Button
+        android:id="@+id/delEventButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除提醒"
+        android:textColor="@color/color_light_pink"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/shape_corner"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
+
+</LinearLayout>
+

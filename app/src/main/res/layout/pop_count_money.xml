@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/v_content_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:background="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="right|center_vertical"
+            android:text="0"
+            android:paddingRight="20dp"
+            android:textSize="22dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_f2f2f2" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:rowCount="5">
+
+            <android.widget.TextView
+                android:id="@+id/clear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="C"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:clickable="true"/>
+
+            <RelativeLayout
+                android:id="@+id/del"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/backspace" />
+            </RelativeLayout>
+
+            <android.widget.TextView
+                android:id="@+id/chu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_select_selector"
+                android:gravity="center"
+                android:text="÷"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/cheng"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_select_selector"
+                android:gravity="center"
+                android:text="x"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/seven"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="7"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/eight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="8"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/nine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="9"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/jian"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_select_selector"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/four"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/five"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/six"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/jia"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_select_selector"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/three"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/equal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowSpan="1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="="
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:background="@color/color_blue_light"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/color_666666" />
+
+            <android.widget.TextView
+                android:id="@+id/zero"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black" />
+
+            <android.widget.TextView
+                android:id="@+id/point"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/count_press_selector"
+                android:gravity="center"
+                android:text="."
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <android.widget.TextView
+                android:id="@+id/confirm"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnSpan="1"
+                android:layout_columnWeight="1"
+                android:background="@color/color_light_pink"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

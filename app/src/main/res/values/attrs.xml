@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundView">
+        <attr name="raduis" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MentionPickerView">
+        <attr name="isAllAay" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="DateAndTimeView">
+        <attr name="title" format="string"/>
+    </declare-styleable>
+
+</resources>

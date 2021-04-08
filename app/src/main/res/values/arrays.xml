@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="manage_type_name">
+        <item>理财</item>
+        <item>基金</item>
+    </array>
+    <array name="manage_type_icon">
+        <item>@drawable/licai</item>
+        <item>@drawable/guanlijijin</item>
+    </array>
+    <array name="in_type_name">
+        <item>理财</item>
+        <item>基金</item>
+        <item>工资</item>
+        <item>补助</item>
+        <item>奖金</item>
+    </array>
+    <array name="in_type_icon">
+        <item>@drawable/licai</item>
+        <item>@drawable/guanlijijin</item>
+        <item>@drawable/gongzi</item>
+        <item>@drawable/gongziyufuli</item>
+        <item>@drawable/jiangjin</item>
+    </array>
+
+    <array name="out_type_name">
+        <item>办公</item>
+        <item>宠物</item>
+        <item>汽车</item>
+        <item>交通</item>
+        <item>父母</item>
+        <item>娱乐</item>
+        <item>社交</item>
+        <item>服饰</item>
+        <item>护肤</item>
+        <item>家用</item>
+        <item>学习</item>
+        <item>旅行</item>
+        <item>日用</item>
+        <item>玩具兴趣</item>
+        <item>亲戚</item>
+        <item>餐饮</item>
+        <item>零食</item>
+        <item>医疗保险</item>
+        <item>通讯</item>
+    </array>
+    <array name="out_type_icon">
+        <item>@drawable/bangong</item>
+        <item>@drawable/chongwu</item>
+        <item>@drawable/qiche</item>
+        <item>@drawable/traffic</item>
+        <item>@drawable/fumu</item>
+        <item>@drawable/yule</item>
+        <item>@drawable/shejiao</item>
+        <item>@drawable/fushi</item>
+        <item>@drawable/hufu</item>
+        <item>@drawable/shenghuo</item>
+        <item>@drawable/xuexi</item>
+        <item>@drawable/lvhang</item>
+        <item>@drawable/riyong</item>
+        <item>@drawable/wanju</item>
+        <item>@drawable/qinshu</item>
+        <item>@drawable/canyin</item>
+        <item>@drawable/lingshi</item>
+        <item>@drawable/yiliao</item>
+        <item>@drawable/tongxun</item>
+
+    </array>
+</resources>

@@ -63,7 +63,7 @@ public class ShowMentionActivity extends SimpleActivity {
             remark.setText(cur.getString(cur.getColumnIndex(CalendarContract.Events.DESCRIPTION)));
             startTimeStamp = cur.getLong(cur.getColumnIndex(CalendarContract.Events.DTSTART));
             endTimeStamp = cur.getLong(cur.getColumnIndex(CalendarContract.Events.DTEND));
-            time.setText(DateUtils.stampToDate(startTimeStamp)+"-"+DateUtils.stampToDate(endTimeStamp));
+            time.setText(DateUtils.stampToDate(startTimeStamp)+" 至 "+DateUtils.stampToDate(endTimeStamp));
         }
         cur.close();
 
@@ -77,7 +77,7 @@ public class ShowMentionActivity extends SimpleActivity {
         cur2.close();
     }
 
-    @OnClick({R.id.close})
+    @OnClick({R.id.close,R.id.edit,R.id.del})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.close:
@@ -93,6 +93,7 @@ public class ShowMentionActivity extends SimpleActivity {
                 intent.putExtra("endTimeStamp",endTimeStamp);
                 intent.putStringArrayListExtra("list", (ArrayList<String>) list);
                 mContext.startActivity(intent);
+                finish();
                 break;
             case R.id.del:
                 new CommonDialog(mContext, "是否删除提醒", 0, new CommonDialog.OnClickBtnListener() {
@@ -124,7 +125,7 @@ public class ShowMentionActivity extends SimpleActivity {
             for (int i = 0; i < mentionTimes.size(); i++) {
                 String tmp = convertMentionToTime(mentionTimes.get(i));
                 list.add(tmp);
-                txt = txt + tmp + ";";
+                txt = txt + tmp + "； ";
             }
             mention.setText(txt);
 

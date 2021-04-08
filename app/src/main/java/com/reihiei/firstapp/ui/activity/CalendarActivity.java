@@ -105,13 +105,17 @@ public class CalendarActivity extends SimpleActivity {
         endTimeStamp = getIntent().getLongExtra("endTimeStamp",0);
         list = getIntent().getStringArrayListExtra("list");
 
-        if (!list.isEmpty()){
+        if (list != null && !list.isEmpty()){
             setTime();
+            resolveData(list);
+            for (int i=0;i<list.size();i++){
+                count.add(i);
+            }
+        } else {
+            initPickerDate();
         }
 
         initPermission();
-        createNewCalendar();
-        initPickerDate();
 
         if (eventId != -1) {
             queryCalendar(eventId);
@@ -170,12 +174,18 @@ public class CalendarActivity extends SimpleActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        CommonDialogUtils.showErrorDialog(mContext, "请在手机设置中开启权限后使用该功能", new CommonDialogUtils.DismissListener() {
-            @Override
-            public void dismiss() {
-                finish();
-            }
-        });
+        if(grantResults.length != 0){
+            createNewCalendar();
+
+        } else {
+            CommonDialogUtils.showErrorDialog(mContext, "请在手机设置中开启权限后使用该功能", new CommonDialogUtils.DismissListener() {
+                @Override
+                public void dismiss() {
+                    finish();
+                }
+            });
+        }
+
 
     }
 
@@ -353,7 +363,9 @@ public class CalendarActivity extends SimpleActivity {
                 count = data.getIntegerArrayListExtra("count");
                 list = data.getStringArrayListExtra("list");
 
+
                 List<String> times = data.getStringArrayListExtra("times");
+                resolveData(times);
                 String time = "";
                 for (String i : times) {
                     time = time + i + ";";
@@ -363,8 +375,18 @@ public class CalendarActivity extends SimpleActivity {
             } else if (resultCode == resultCode2) {
                 isMention = false;
                 mention.setText("");
+                mentionTimes.clear();
             }
         }
+    }
+
+    private void resolveData(List<String> times ) {
+        String time = "";
+        for (String i : times) {
+            time = time + i + ";";
+        }
+        mention.setText(time);
+        convertTimeToMention(times);
     }
 
     private void insertCalendar() {
@@ -570,7 +592,7 @@ public class CalendarActivity extends SimpleActivity {
         chooseSYear = calendar.get(Calendar.YEAR);
         chooseSMonth = calendar.get(Calendar.MONTH) + 1;
         chooseSDay = calendar.get(Calendar.DATE);
-        chooseSHour = calendar.get(Calendar.HOUR);
+        chooseSHour = calendar.get(Calendar.HOUR_OF_DAY);
         chooseSMinute = calendar.get(Calendar.MINUTE);
         tvStartTime.setText(chooseSYear + "年" + chooseSMonth + "月" + chooseSDay + "日" + chooseSHour + "时" + chooseSMinute + "分");
 
@@ -579,7 +601,7 @@ public class CalendarActivity extends SimpleActivity {
         chooseEYear = calendar.get(Calendar.YEAR);
         chooseEMonth = calendar.get(Calendar.MONTH) + 1;
         chooseEDay = calendar.get(Calendar.DATE);
-        chooseEHour = calendar.get(Calendar.HOUR);
+        chooseEHour = calendar.get(Calendar.HOUR_OF_DAY);
         chooseEMinute = calendar.get(Calendar.MINUTE);
         tvEndTime.setText(chooseEYear + "年" + chooseEMonth + "月" + chooseEDay + "日" + chooseEHour + "时" + chooseEMinute + "分");
     }

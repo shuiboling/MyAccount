@@ -33,7 +33,7 @@ public class DateUtils {
     public static String stampToDate(long time) {
 
         Date date = new Date(time);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         return simpleDateFormat.format(date);
 
     }

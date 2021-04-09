@@ -17,6 +17,7 @@ import com.reihiei.firstapp.R;
 import com.reihiei.firstapp.bean.AccountBean;
 import com.reihiei.firstapp.bean.TagBean;
 import com.reihiei.firstapp.db.DbUtils;
+import com.reihiei.firstapp.widget.DragLayout;
 
 import java.util.List;
 
@@ -82,13 +83,12 @@ public class AccountAdapter extends RecyclerView.Adapter {
         }
         myViewHolder.remark.setText(bean.getRemark());
 
-        myViewHolder.item.setOnLongClickListener(new View.OnLongClickListener() {
+        myViewHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 if(accountInterface != null){
-                    accountInterface.onLongClickListener(myViewHolder.money,position);
+                    accountInterface.onClickListener(myViewHolder.money,position);
                 }
-                return true;
             }
         });
 
@@ -101,23 +101,23 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvHead;
-        private RelativeLayout rlHead;
         private LinearLayout item;
         private ImageView icon;
         private TextView type;
         private TextView money;
         private TextView remark;
+        private DragLayout dragLayout;
+        private RelativeLayout del;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-//            tvHead = (TextView) itemView.findViewById(R.id.tv_item_head);
-//            rlHead = (RelativeLayout)itemView.findViewById(R.id.rl_item_head);
             item = (LinearLayout) itemView.findViewById(R.id.ll_item_account);
             icon = itemView.findViewById(R.id.iv_icon);
             type = itemView.findViewById(R.id.tv_type);
             money = itemView.findViewById(R.id.tv_money);
             remark = itemView.findViewById(R.id.tv_remark);
+            dragLayout = itemView.findViewById(R.id.drag);
+            del = itemView.findViewById(R.id.del);
         }
     }
 
@@ -127,7 +127,7 @@ public class AccountAdapter extends RecyclerView.Adapter {
         this.accountInterface = accountInterface;
     }
     public interface AccountInterface{
-        public void onLongClickListener(View view,int position);
+        public void onClickListener(View view,int position);
     }
 
 }

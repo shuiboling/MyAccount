@@ -1,5 +1,6 @@
 package com.reihiei.firstapp.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.reihiei.firstapp.db.DbUtils;
 import com.reihiei.firstapp.framework.SimpleFragment;
 import com.reihiei.firstapp.ui.apater.AccountAdapter;
 import com.reihiei.firstapp.ui.decoration.AccountDecoration;
+import com.reihiei.firstapp.widget.CommonDialog;
 import com.reihiei.firstapp.widget.MyDatePicker;
 
 import java.util.ArrayList;
@@ -65,20 +67,18 @@ public class AccountFragment extends SimpleFragment {
         accountAdapter = new AccountAdapter(getContext(),list);
         accountAdapter.setAccountInterface(new AccountAdapter.AccountInterface() {
             @Override
-            public void onLongClickListener(View view,int position) {
-                PopupMenu popupMenu = new PopupMenu(context,view);
-                popupMenu.inflate(R.menu.del_menu);
-                popupMenu.show();
+            public void onClickListener(View view,int position) {
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                new CommonDialog(context, "是否删除", 0, new CommonDialog.OnClickBtnListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        DbUtils.getInstance(context).deleteByTime(list.get(position).getAddTime());
-                        getData();
-                        popupMenu.dismiss();
-                        return true;
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if(confirm){
+                            DbUtils.getInstance(context).deleteByTime(list.get(position).getAddTime());
+                            getData();
+                        }
+                        dialog.dismiss();
                     }
-                });
+                }).setCancelTxt("取消").setSubmitTxt("确定").show();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

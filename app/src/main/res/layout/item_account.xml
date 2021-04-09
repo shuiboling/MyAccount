@@ -6,50 +6,74 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
+    <com.reihiei.firstapp.widget.DragLayout
+        android:id="@+id/drag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/yiliao"
-            android:layout_centerVertical="true" />
-
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="理财"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_toRightOf="@id/iv_icon"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"/>
+            android:padding="15dp">
 
-        <TextView
-            android:id="@+id/tv_remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="备注"
-            android:layout_toRightOf="@id/tv_type"
-            android:layout_marginLeft="10dp"
-            android:textSize="13dp"
-            android:layout_centerVertical="true"
-            android:maxEms="10"/>
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/yiliao"
+                android:layout_centerVertical="true" />
 
-        <TextView
-            android:id="@+id/tv_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-¥80"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="理财"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_toRightOf="@id/iv_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注"
+                android:layout_toRightOf="@id/tv_type"
+                android:layout_marginLeft="10dp"
+                android:textSize="13dp"
+                android:layout_centerVertical="true"
+                android:maxEms="10"/>
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-¥80"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/del"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_light_pink_light">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete_outline_24"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_shape"
+                android:padding="5dp"
+                android:backgroundTint="@color/color_red"/>
+
+        </RelativeLayout>
+
+    </com.reihiei.firstapp.widget.DragLayout>
 
     <View
         android:layout_width="match_parent"

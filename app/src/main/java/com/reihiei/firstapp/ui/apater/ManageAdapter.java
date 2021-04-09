@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,11 +52,10 @@ public class ManageAdapter extends RecyclerView.Adapter {
         myViewHolder.channel.setText(manageBean.getChannel());
         myViewHolder.money.setText("¥" + manageBean.getMoney());
 
-        myViewHolder.item.setOnLongClickListener((v) -> {
-            if (longClickListener != null) {
-                longClickListener.longClick(v, position);
+        myViewHolder.del.setOnClickListener((v) -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(v, position);
             }
-            return true;
         });
 
         myViewHolder.item.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +72,7 @@ public class ManageAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -85,6 +86,7 @@ public class ManageAdapter extends RecyclerView.Adapter {
         private TextView channel;
         private TextView date;
         private ConstraintLayout item;
+        private RelativeLayout del;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,16 +95,17 @@ public class ManageAdapter extends RecyclerView.Adapter {
             channel = itemView.findViewById(R.id.channel);
             date = itemView.findViewById(R.id.date);
             item = itemView.findViewById(R.id.item);
+            del = itemView.findViewById(R.id.del);
         }
     }
 
-    private OnLongClickListener longClickListener;
+    private OnClickListener onClickListener;
 
-    public void setLongClickListener(OnLongClickListener longClickListener) {
-        this.longClickListener = longClickListener;
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
-    public interface OnLongClickListener {
-        public void longClick(View view, int position);
+    public interface OnClickListener {
+        public void onClick(View view, int position);
     }
 }

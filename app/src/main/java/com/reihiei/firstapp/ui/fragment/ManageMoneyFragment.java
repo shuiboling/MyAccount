@@ -1,5 +1,6 @@
 package com.reihiei.firstapp.ui.fragment;
 
+import android.app.Dialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -16,6 +17,7 @@ import com.reihiei.firstapp.framework.SimpleFragment;
 import com.reihiei.firstapp.ui.apater.ManageAdapter;
 import com.reihiei.firstapp.ui.decoration.AccountDecoration;
 import com.reihiei.firstapp.ui.decoration.ManageDecoration;
+import com.reihiei.firstapp.widget.CommonDialog;
 import com.reihiei.firstapp.widget.MyDatePicker;
 
 import java.util.ArrayList;
@@ -60,22 +62,21 @@ public class ManageMoneyFragment extends SimpleFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(decoration);
 
-        manageAdapter.setLongClickListener(new ManageAdapter.OnLongClickListener() {
+        manageAdapter.setOnClickListener(new ManageAdapter.OnClickListener() {
             @Override
-            public void longClick(View view,int position) {
-                PopupMenu popupMenu = new PopupMenu(context,view);
-                popupMenu.inflate(R.menu.del_menu);
-                popupMenu.show();
+            public void onClick(View view,int position) {
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                new CommonDialog(context, "是否删除", 0, new CommonDialog.OnClickBtnListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        DbUtils.getInstance(context).deleteByTimeManage(list.get(position).getAddTime());
-                        getData();
-                        popupMenu.dismiss();
-                        return true;
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if(confirm){
+                            DbUtils.getInstance(context).deleteByTimeManage(list.get(position).getAddTime());
+                            getData();
+                        }
+                        dialog.dismiss();
                     }
-                });
+                }).setCancelTxt("取消").setSubmitTxt("确定").show();
+
             }
         });
     }

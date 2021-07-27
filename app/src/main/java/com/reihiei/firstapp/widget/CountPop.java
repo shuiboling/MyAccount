@@ -274,7 +274,7 @@ public class CountPop implements View.OnClickListener {
             case "*":
                 return formNum(num1.multiply(num2));
             case "/":
-                return formNum(num1.divide(num2));
+                return formNum(num1.divide(num2,3,RoundingMode.HALF_UP));
             default:
                 return "";
         }

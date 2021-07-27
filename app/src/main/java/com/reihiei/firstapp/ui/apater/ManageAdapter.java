@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,10 +24,12 @@ public class ManageAdapter extends RecyclerView.Adapter {
 
     private List<ManageBean> list;
     private Context context;
+    private String[] types;
 
     public ManageAdapter(Context context, List<ManageBean> list) {
         this.context = context;
         this.list = list;
+        types = context.getResources().getStringArray(R.array.manage_product_type);
     }
 
     public void upDate(List<ManageBean> list) {
@@ -47,12 +50,25 @@ public class ManageAdapter extends RecyclerView.Adapter {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         ManageBean manageBean = list.get(position);
 
-        myViewHolder.name.setText(manageBean.getName());
+        myViewHolder.name.setText(manageBean.getNameP());
         myViewHolder.date.setText(manageBean.getMonth() + "月" + manageBean.getDay() + "日");
-        myViewHolder.channel.setText(manageBean.getChannel());
+        myViewHolder.channel.setText(manageBean.getNameC());
         myViewHolder.money.setText("¥" + manageBean.getMoney());
+        myViewHolder.type.setText(types[manageBean.getTypeP()]);
+
+        if (manageBean.getShuhui() == 1) {
+            myViewHolder.shuhui.setVisibility(View.VISIBLE);
+        } else {
+            myViewHolder.shuhui.setVisibility(View.GONE);
+        }
 
         myViewHolder.del.setOnClickListener((v) -> {
+            if (onClickListener != null) {
+                onClickListener.onClick(v, position);
+            }
+        });
+
+        myViewHolder.back.setOnClickListener((v) -> {
             if (onClickListener != null) {
                 onClickListener.onClick(v, position);
             }
@@ -87,6 +103,9 @@ public class ManageAdapter extends RecyclerView.Adapter {
         private TextView date;
         private ConstraintLayout item;
         private RelativeLayout del;
+        private RelativeLayout back;
+        private ImageView shuhui;
+        private TextView type;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +115,9 @@ public class ManageAdapter extends RecyclerView.Adapter {
             date = itemView.findViewById(R.id.date);
             item = itemView.findViewById(R.id.item);
             del = itemView.findViewById(R.id.del);
+            shuhui = itemView.findViewById(R.id.iv_shuhui);
+            back = itemView.findViewById(R.id.rl_shuhui);
+            type = itemView.findViewById(R.id.type);
         }
     }
 

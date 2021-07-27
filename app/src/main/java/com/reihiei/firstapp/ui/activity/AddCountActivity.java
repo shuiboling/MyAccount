@@ -15,9 +15,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.reihiei.firstapp.R;
 import com.reihiei.firstapp.bean.AccountBean;
 import com.reihiei.firstapp.bean.ManageBean;
+import com.reihiei.firstapp.bean.ManageProductBean;
 import com.reihiei.firstapp.bean.TagBean;
 import com.reihiei.firstapp.db.DbUtils;
 import com.reihiei.firstapp.framework.SimpleActivity;
@@ -64,7 +67,7 @@ public class AddCountActivity extends SimpleActivity {
     private int year, month, day;
     private List<TagBean> tagBeans;
     private String[] names;
-
+    private ManageProductBean beanP,beanC;
 
     @Override
     protected void initEventAndView() {
@@ -77,13 +80,13 @@ public class AddCountActivity extends SimpleActivity {
         tvDate.setText(year + "-" + month + "-" + day);
 
         initTab();
+        initChipGroup();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initChipGroup();
     }
 
     private void initTab() {
@@ -95,10 +98,13 @@ public class AddCountActivity extends SimpleActivity {
                 if (position == 2) {
                     llRemark.setVisibility(View.GONE);
                     llMange.setVisibility(View.VISIBLE);
+                    etName.setVisibility(View.GONE);
+
                 } else {
                     llRemark.setVisibility(View.VISIBLE);
                     llMange.setVisibility(View.GONE);
                 }
+                chipType = -1;
                 initChipGroup();
             }
 
@@ -162,6 +168,10 @@ public class AddCountActivity extends SimpleActivity {
                 chipType = i;
                 Log.d("zyy", chipType + "");
 
+                if (chipType != -1){
+                    etName.setVisibility(View.VISIBLE);
+                }
+
             }
         });
     }
@@ -171,7 +181,7 @@ public class AddCountActivity extends SimpleActivity {
         return R.layout.activity_add;
     }
 
-    @OnClick({R.id.btn, R.id.date, R.id.iv_back, R.id.money, R.id.iv_manage})
+    @OnClick({R.id.btn, R.id.date, R.id.iv_back, R.id.money, R.id.iv_manage,R.id.et_name,R.id.et_channel})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn:
@@ -206,6 +216,33 @@ public class AddCountActivity extends SimpleActivity {
                 Intent intent = new Intent(mContext, TagManageActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.et_name:
+                Intent intent1 = new Intent(mContext,ManageProductActivity.class);
+                intent1.putExtra("flag","N");
+                intent1.putExtra("chipType",chipType);
+                startActivityForResult(intent1,1);
+                break;
+            case R.id.et_channel:
+                Intent intent2 = new Intent(mContext,ManageProductActivity.class);
+                intent2.putExtra("flag","C");
+                startActivityForResult(intent2,1);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null){
+
+            if (resultCode == 1){   //product
+                beanP = (ManageProductBean) data.getSerializableExtra("bean");
+                etName.setText(beanP.getName());
+            } else {
+                beanC = (ManageProductBean) data.getSerializableExtra("bean");
+                etChannel.setText(beanC.getName());
+            }
         }
 
     }
@@ -281,6 +318,10 @@ public class AddCountActivity extends SimpleActivity {
             Toast.makeText(mContext, "日期不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (chipType == -1) {
+            Toast.makeText(mContext, "请选择类别", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (TextUtils.isEmpty(etName.getText().toString())) {
             Toast.makeText(mContext, "产品名称不能为空", Toast.LENGTH_SHORT).show();
             return;
@@ -290,13 +331,9 @@ public class AddCountActivity extends SimpleActivity {
             return;
         }
         manageBean.setMoney(etMoney.getText().toString());
-        manageBean.setName(etName.getText().toString());
-        manageBean.setChannel(etChannel.getText().toString());
+        manageBean.setProductid(beanP.getId());
+        manageBean.setChannelid(beanC.getId());
 
-        if (chipType == -1) {
-            Toast.makeText(mContext, "请选择类别", Toast.LENGTH_SHORT).show();
-            return;
-        }
         new CommonDialog(mContext, 0, new CommonDialog.OnClickBtnListener() {
             @Override
             public void onClick(Dialog dialog, boolean confirm) {

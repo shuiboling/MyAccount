@@ -48,11 +48,11 @@ public class HomeActivity extends SimpleActivity implements MyBottomWidget.onIte
     @Override
     public void initEventAndView() {
 
-        if(SpUtils.getInstance().getBoolean("first_in",true)){
+        if (SpUtils.getInstance().getBoolean("first_in", true)) {
 
-            new CommonDialog(mContext,"是否设置密码",0,((dialog, confirm) -> {
+            new CommonDialog(mContext, "是否设置密码", 0, ((dialog, confirm) -> {
 
-                if(confirm){
+                if (confirm) {
                     Intent intent = new Intent(mContext, PasswordActivity.class);
                     startActivity(intent);
                     dialog.dismiss();
@@ -60,8 +60,15 @@ public class HomeActivity extends SimpleActivity implements MyBottomWidget.onIte
 
             })).setSubmitTxt("确定").setCancelTxt("取消").show();
 
-            SpUtils.getInstance().setBoolean("first_in",false);
+            SpUtils.getInstance().setBoolean("first_in", false);
 
+        } else if (SpUtils.getInstance().getBoolean("finger_switch", false)) {
+            Intent intent = new Intent(mContext, FingerPrintActivity.class);
+            startActivity(intent);
+
+        } else if (!TextUtils.isEmpty(SpUtils.getInstance().getString("password", ""))) {
+            Intent intent = new Intent(mContext, SafeInActivity.class);
+            startActivity(intent);
         }
 
         myBottomWidget.post(new Runnable() {
@@ -76,11 +83,11 @@ public class HomeActivity extends SimpleActivity implements MyBottomWidget.onIte
     }
 
     private void initBottomBar() {
-        myBottomWidget.addItem(new BottomTab(mContext,R.drawable.mingxi,"明细",false))
-                .addItem(new BottomTab(mContext,R.drawable.jilicai,"理财",false))
-                .addItem(new BottomTab(mContext,R.drawable.ic_add_black_50dp,"添加",true))
-                .addItem(new BottomTab(mContext,R.drawable.tongji,"统计",false))
-                .addItem(new BottomTab(mContext,R.drawable.wo,"我",false));
+        myBottomWidget.addItem(new BottomTab(mContext, R.drawable.mingxi, "明细", false))
+                .addItem(new BottomTab(mContext, R.drawable.jilicai, "理财", false))
+                .addItem(new BottomTab(mContext, R.drawable.ic_add_black_50dp, "添加", true))
+                .addItem(new BottomTab(mContext, R.drawable.tongji, "统计", false))
+                .addItem(new BottomTab(mContext, R.drawable.wo, "我", false));
 
         myBottomWidget.setOnItemClickListener(this);
     }
@@ -94,7 +101,7 @@ public class HomeActivity extends SimpleActivity implements MyBottomWidget.onIte
             accountFragment = (AccountFragment) fragmentManager.getFragment(savedInstanceState, tag1);
             manageMoneyFragment = (ManageMoneyFragment) fragmentManager.getFragment(savedInstanceState, tag2);
             chartFragment = (ChartFragment) fragmentManager.getFragment(savedInstanceState, tag3);
-            mineFragment = (MineFragment) fragmentManager.getFragment(savedInstanceState,tag4);
+            mineFragment = (MineFragment) fragmentManager.getFragment(savedInstanceState, tag4);
         } else {
             accountFragment = new AccountFragment();
 

@@ -38,7 +38,7 @@ public class ManageMoneyFragment extends SimpleFragment {
     @BindView(R.id.tv_buy)
     TextView tvBuy;
 
-    private int year,month;
+    private int year, month;
     private List<ManageBean> list = new ArrayList<>();
     private ManageAdapter manageAdapter;
     private ManageDecoration decoration;
@@ -47,39 +47,56 @@ public class ManageMoneyFragment extends SimpleFragment {
     protected void initEventAndView() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        tvYear.setText(year+"年");
-        month = calendar.get((Calendar.MONTH))+1;
-        tvMonth.setText(month+"月");
+        tvYear.setText(year + "年");
+        month = calendar.get((Calendar.MONTH)) + 1;
+        tvMonth.setText(month + "月");
 
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        manageAdapter = new ManageAdapter(context,list);
+        manageAdapter = new ManageAdapter(context, list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        decoration = new ManageDecoration(context,list);
+        decoration = new ManageDecoration(context, list);
         recyclerView.setAdapter(manageAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(decoration);
 
         manageAdapter.setOnClickListener(new ManageAdapter.OnClickListener() {
             @Override
-            public void onClick(View view,int position) {
+            public void onClick(View view, int position) {
 
-                new CommonDialog(context, "是否删除", 0, new CommonDialog.OnClickBtnListener() {
-                    @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
-                        if(confirm){
-                            DbUtils.getInstance(context).deleteByTimeManage(list.get(position).getAddTime());
-                            getData();
-                        }
-                        dialog.dismiss();
-                    }
-                }).setCancelTxt("取消").setSubmitTxt("确定").show();
+                switch (view.getId()) {
+                    case R.id.del:
+                        new CommonDialog(context, "是否删除", 0, new CommonDialog.OnClickBtnListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    DbUtils.getInstance(context).deleteByTimeManage(list.get(position).getAddTime());
+                                    getData();
+                                }
+                                dialog.dismiss();
+                            }
+                        }).setCancelTxt("取消").setSubmitTxt("确定").show();
+                        break;
+                    case R.id.rl_shuhui:
+                        new CommonDialog(context, "是否更改赎回标记", 0, new CommonDialog.OnClickBtnListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    DbUtils.getInstance(context).updateShuHui(list.get(position).getShuhui()==1?0:1
+                                            ,list.get(position).getAddTime());
+                                    getData();
+                                }
+                                dialog.dismiss();
+                            }
+                        }).setCancelTxt("取消").setSubmitTxt("确定").show();
+                        break;
+                }
 
-            }
-        });
-    }
+        }
+    });
+}
 
 
     @Override
@@ -96,8 +113,8 @@ public class ManageMoneyFragment extends SimpleFragment {
     }
 
     private void getData() {
-        ManageBeanResp manageBeanResp = DbUtils.getInstance(context).queryByMonthMange(year,month);
-        tvBuy.setText("¥"+manageBeanResp.getSum());
+        ManageBeanResp manageBeanResp = DbUtils.getInstance(context).queryByMonthMange(year, month);
+        tvBuy.setText("¥" + manageBeanResp.getSum());
 
         list = manageBeanResp.getList();
 
@@ -116,14 +133,14 @@ public class ManageMoneyFragment extends SimpleFragment {
 
     private void showDataPicker() {
 
-        new MyDatePicker(context,(datePicker -> {
+        new MyDatePicker(context, (datePicker -> {
             year = datePicker.getYear();
-            tvYear.setText(year+"年");
-            month = (datePicker.getMonth()+1);
-            tvMonth.setText(month+"月");
+            tvYear.setText(year + "年");
+            month = (datePicker.getMonth() + 1);
+            tvMonth.setText(month + "月");
             getData();
 
-        })).showDataPicker(year,month-1,1,false);
+        })).showDataPicker(year, month - 1, 1, false);
 
     }
 }

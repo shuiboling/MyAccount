@@ -38,6 +38,39 @@ public class DbHelper extends SQLiteOpenHelper {
                     "primary key(addtime)" +
                     ")";
 
+    private String create_manage_new_db =
+            "create table manage_new_table " +
+                    "( " +
+                    "year integer default 1900," +
+                    "month integer default 1," +
+                    "day integer default 1," +
+                    "productid int," +
+                    "money text default 0," +
+                    "classify integer default 0," +
+                    "addtime text," +
+                    "channelid int," +
+                    "eventid integer," +
+                    "shuhui integer default 0," +
+                    "primary key(addtime)," +
+                    "FOREIGN KEY (productid) REFERENCES product_table (id),"+
+                    "FOREIGN KEY (channelid) REFERENCES channel_table (id)"+
+                    ")";
+
+    private String create_product_db =
+            "create table product_table " +
+                    "( " +
+                    "id integer PRIMARY KEY AUTOINCREMENT," +
+                    "nameP text default 0," +
+                    "typeP integer default 0" +
+                    ")";
+
+    private String create_channel_db =
+            "create table channel_table " +
+                    "( " +
+                    "id integer PRIMARY KEY AUTOINCREMENT," +
+                    "nameC text default 0" +
+                    ")";
+
     private String create_tag_db =
             "create table tag_table " +
                     "( " +
@@ -70,6 +103,9 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(create_manage_db);
         db.execSQL(create_tag_db);
         db.execSQL(create_mention_db);
+        db.execSQL(create_channel_db);
+        db.execSQL(create_product_db);
+        db.execSQL(create_manage_new_db);
     }
 
     private String custListAddRow(int num) {
@@ -96,8 +132,16 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         switch (oldVersion) {
-            case 1://1->2
+            case 1://1->2->3
                 updateManageListTable(db,custListAddRow(1));
+                db.execSQL(create_channel_db);
+                db.execSQL(create_product_db);
+                db.execSQL(create_manage_new_db);
+                break;
+            case 2://2->3
+                db.execSQL(create_channel_db);
+                db.execSQL(create_product_db);
+                db.execSQL(create_manage_new_db);
                 break;
 
         }

@@ -10,10 +10,9 @@ import com.reihiei.firstapp.bean.AnalyseManageBean;
 import com.reihiei.firstapp.bean.AnalyseManageBeanResp;
 import com.reihiei.firstapp.bean.ManageBean;
 import com.reihiei.firstapp.bean.ManageBeanResp;
+import com.reihiei.firstapp.bean.ManageProductBean;
 import com.reihiei.firstapp.bean.TagBean;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class DbUtils {
     private static DbUtils dbUtils = null;
     private DbHelper dbHelper;
     private String dbName = "account";
-    private int version = 2;
+    private int version = 3;
     private SQLiteDatabase db;
 
     private DbUtils(Context context) {
@@ -274,29 +273,32 @@ public class DbUtils {
     /*------------------理财表------------------*/
 
     //增
+    // TODO: 7/23/21  
     public void addManage(ManageBean manageBean) {
         db = dbHelper.getWritableDatabase();
 
-        db.execSQL("insert into manage_table values(?,?,?,?,?,?,?,?,?)",
+        db.execSQL("insert into manage_new_table values(?,?,?,?,?,?,?,?,?,?)",
                 new Object[]{
                         manageBean.getYear(),
                         manageBean.getMonth(),
                         manageBean.getDay(),
-                        manageBean.getName(),
+                        manageBean.getProductid(),
                         manageBean.getMoney(),
                         manageBean.getClassify(),
                         manageBean.getAddTime(),
-                        manageBean.getChannel(),
-                        -1
+                        manageBean.getChannelid(),
+                        -1,
+                        manageBean.getShuhui()
                 });
     }
 
     //删
     public void deleteByTimeManage(String time) {
         db = dbHelper.getWritableDatabase();
-        db.execSQL("delete from manage_table where addtime = ?", new String[]{time});
+        db.execSQL("delete from manage_new_table where addtime = ?", new String[]{time});
     }
 
+    // TODO: 7/23/21  inner join
     //查（按指定年月）
     public ManageBeanResp queryByMonthMange(int year, int month) {
 
@@ -305,7 +307,11 @@ public class DbUtils {
         String query;
         String[] param;
 
-        query = "select * from manage_table where year = ? and month = ? order by classify,day";
+        query = "select x.*,y.nameP,y.typeP ,z.nameC from " +
+                "manage_new_table x inner join product_table y on x.productid=y.id " +
+                "inner join channel_table z on x.channelid = z.id " +
+                "where x.year = ? and x.month = ? order by x.classify,x.day";
+
         param = new String[]{year + "", month + ""};
 
         Cursor cursor = db.rawQuery(query, param);
@@ -319,12 +325,14 @@ public class DbUtils {
             bean.setYear(cursor.getInt(cursor.getColumnIndex("year")));
             bean.setMonth(cursor.getInt(cursor.getColumnIndex("month")));
             bean.setDay(cursor.getInt(cursor.getColumnIndex("day")));
-            bean.setName(cursor.getString(cursor.getColumnIndex("name")));
+            bean.setNameP(cursor.getString(cursor.getColumnIndex("nameP")));
+            bean.setTypeP(cursor.getInt(cursor.getColumnIndex("typeP")));
             bean.setMoney(cursor.getString(cursor.getColumnIndex("money")));
-            bean.setChannel(cursor.getString(cursor.getColumnIndex("channel")));
+            bean.setNameC(cursor.getString(cursor.getColumnIndex("nameC")));
             bean.setClassify(cursor.getInt(cursor.getColumnIndex("classify")));
             bean.setAddTime(cursor.getString(cursor.getColumnIndex("addtime")));
             bean.setEventId(cursor.getLong(cursor.getColumnIndex("eventid")));
+            bean.setShuhui(cursor.getInt(cursor.getColumnIndex("shuhui")));
 
             sum += Float.valueOf(cursor.getString(cursor.getColumnIndex("money")));
 
@@ -348,7 +356,7 @@ public class DbUtils {
         String query;
         String[] param;
 
-        query = "select count(1), sum(money), classify from manage_table where year = ? and month = ? group by classify";
+        query = "select count(1), sum(money), classify from manage_new_table where year = ? and month = ? group by classify";
         param = new String[]{year + "", month + ""};
 
         Cursor cursor = db.rawQuery(query, param);
@@ -379,7 +387,12 @@ public class DbUtils {
 
     public void updateEventId(long evenId,String addtime){
         db = dbHelper.getWritableDatabase();
-        db.execSQL("update manage_table set eventid = ? where addtime = ?", new Object[]{evenId,addtime});
+        db.execSQL("update manage_new_table set eventid = ? where addtime = ?", new Object[]{evenId,addtime});
+    }
+
+    public void updateShuHui(int shuhui,String addtime){
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("update manage_new_table set shuhui = ? where addtime = ?", new Object[]{shuhui,addtime});
     }
 
     /*------------------标签表------------------*/
@@ -509,5 +522,173 @@ public class DbUtils {
     public void deleteMentionById(String id) {
         db = dbHelper.getWritableDatabase();
         db.execSQL("delete from tag_table where id = ?", new String[]{id});
+    }
+
+    //--------------------理财产品---------------
+    public void addMP(ManageProductBean bean) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into product_table values(?,?,?)",
+                new Object[]{
+                        null,
+                        bean.getName(),
+                        bean.getType()
+                });
+    }
+
+    public List<ManageProductBean> queryMP(int type){
+        db = dbHelper.getReadableDatabase();
+
+        String query;
+        if (type == 0){
+            query = "select * from product_table where typeP = 0";
+        } else {
+            query = "select * from product_table where typeP != 0";
+
+        }
+        Cursor cursor = db.rawQuery(query,new String[]{});
+
+        List<ManageProductBean> list = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            ManageProductBean bean = new ManageProductBean();
+            bean.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            bean.setType(cursor.getInt(cursor.getColumnIndex("typeP")));
+            bean.setName(cursor.getString(cursor.getColumnIndex("nameP")));
+
+            list.add(bean);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public boolean queryMPByName(String name, int type) {
+        db = dbHelper.getReadableDatabase();
+        String query = "select * from product_table where nameP = ? and typeP = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{name, type + ""});
+        cursor.moveToFirst();
+        int num = cursor.getCount();
+        cursor.close();
+
+        if (num == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public int queryMPIdByName(String name){
+        db = dbHelper.getReadableDatabase();
+        String query = "select id from product_table where nameP like ? ";
+        Cursor cursor = db.rawQuery(query, new String[]{"%"+name+"%"});
+        cursor.moveToFirst();
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        return id;
+    }
+
+    public void updateMPById(int id, String name, int type) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("update product_table set nameP = ? , type = ? where id = ?", new Object[]{name,type,id});
+    }
+
+    //删
+    public void deleteProductById(int id) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("delete from product_table where id = ?", new Object[]{id});
+    }
+
+    //----------------理财渠道-----------------
+    public int queryMCIdByName(String name){
+        db = dbHelper.getReadableDatabase();
+        String query = "select id from channel_table where nameC like ? ";
+        Cursor cursor = db.rawQuery(query, new String[]{"%"+name+"%"});
+        cursor.moveToFirst();
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        return id;
+    }
+
+    public List<ManageProductBean> queryMC() {
+        db = dbHelper.getReadableDatabase();
+
+        String query = "select * from channel_table";
+        Cursor cursor = db.rawQuery(query,new String[]{});
+
+        List<ManageProductBean> list = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            ManageProductBean bean = new ManageProductBean();
+            bean.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            bean.setName(cursor.getString(cursor.getColumnIndex("nameC")));
+            bean.setType(-1);
+            list.add(bean);
+        }
+        cursor.close();
+
+        return list;
+    }
+
+    public boolean queryMCByName(String name) {
+        db = dbHelper.getReadableDatabase();
+        String query = "select * from channel_table where nameC = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{name});
+        cursor.moveToFirst();
+        int num = cursor.getCount();
+        cursor.close();
+
+        if (num == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public void updateMCById(int id, String name) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("update channel_table set nameC = ? where id = ?", new Object[]{name,id});
+    }
+
+    public void addMC(ManageProductBean bean) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into channel_table values(?,?)",
+                new Object[]{
+                        null,
+                        bean.getName()
+                });
+    }
+
+    public void deleteChannelById(int id) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("delete from channel_table where id = ?", new Object[]{id});
+    }
+
+    //将数据从manage_table导到manage_new_table
+    public void removeData() {
+        db = dbHelper.getWritableDatabase();
+        String query = "select * from manage_table ";
+
+        Cursor cursor = db.rawQuery(query, new String[]{});
+
+        List<ManageBean> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            ManageBean bean = new ManageBean();
+            bean.setYear(cursor.getInt(cursor.getColumnIndex("year")));
+            bean.setMonth(cursor.getInt(cursor.getColumnIndex("month")));
+            bean.setDay(cursor.getInt(cursor.getColumnIndex("day")));
+            bean.setNameP(cursor.getString(cursor.getColumnIndex("name")));
+            bean.setMoney(cursor.getString(cursor.getColumnIndex("money")));
+            bean.setNameC(cursor.getString(cursor.getColumnIndex("channel")));
+            bean.setClassify(cursor.getInt(cursor.getColumnIndex("classify")));
+            bean.setAddTime(cursor.getString(cursor.getColumnIndex("addtime")));
+            bean.setEventId(cursor.getLong(cursor.getColumnIndex("eventid")));
+            bean.setShuhui(0);
+            list.add(bean);
+        }
+        cursor.close();
+
+        for (ManageBean item:list){
+            int idP = queryMPIdByName(item.getNameP());
+            item.setProductid(idP);
+            int idC = queryMCIdByName(item.getNameC().substring(0,1));
+            item.setChannelid(idC);
+            addManage(item);
+        }
     }
 }

@@ -59,17 +59,17 @@ abstract public class SimpleActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if(count == 0){
-            if( SpUtils.getInstance().getBoolean("finger_switch", false)){
-                Intent intent = new Intent(mContext, FingerPrintActivity.class);
-                startActivity(intent);
-
-            } else if(!TextUtils.isEmpty(SpUtils.getInstance().getString("password",""))){
-                Intent intent = new Intent(mContext, SafeInActivity.class);
-                startActivity(intent);
-            }
-        }
-        count ++;
+//        if(count == 0){
+//            if( SpUtils.getInstance().getBoolean("finger_switch", false)){
+//                Intent intent = new Intent(mContext, FingerPrintActivity.class);
+//                startActivity(intent);
+//
+//            } else if(!TextUtils.isEmpty(SpUtils.getInstance().getString("password",""))){
+//                Intent intent = new Intent(mContext, SafeInActivity.class);
+//                startActivity(intent);
+//            }
+//        }
+//        count ++;
 
     }
 
@@ -81,7 +81,7 @@ abstract public class SimpleActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        count --;
+//        count --;
 
     }
 

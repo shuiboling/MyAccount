@@ -94,7 +94,7 @@ public class EditTagActivity extends SimpleActivity {
                             if (confirm) {
 
                                 if (DbUtils.getInstance(mContext).queryTagByName(name, type)) {
-                                    Toast.makeText(mContext, "已添加过改标签", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, "该标签已存在", Toast.LENGTH_SHORT).show();
                                 } else {
                                     DbUtils.getInstance(mContext).updateTagById(id,name);
                                     finish();

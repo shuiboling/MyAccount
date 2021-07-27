@@ -46,6 +46,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
 
+        <activity android:name=".ui.activity.EditManageProductActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.activity.ManageProductActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.SafeInActivity"
             android:screenOrientation="portrait"

@@ -65,6 +65,13 @@
         <item>@drawable/lingshi</item>
         <item>@drawable/yiliao</item>
         <item>@drawable/tongxun</item>
+    </array>
 
+    <array name="manage_product_type">
+        <item>理财</item>
+        <item>股票</item>
+        <item>混合</item>
+        <item>债券</item>
+        <item>货币</item>
     </array>
 </resources>

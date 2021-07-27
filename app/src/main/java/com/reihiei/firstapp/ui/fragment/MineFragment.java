@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.reihiei.firstapp.R;
+import com.reihiei.firstapp.db.DbUtils;
 import com.reihiei.firstapp.framework.SimpleFragment;
 import com.reihiei.firstapp.ui.activity.FingerPrintActivity;
 import com.reihiei.firstapp.ui.activity.FingerSetActivity;
@@ -25,7 +26,7 @@ public class MineFragment extends SimpleFragment {
         return R.layout.fragment_mine;
     }
 
-    @OnClick({R.id.rl_tag,R.id.rl_data,R.id.rl_password,R.id.rl_finger,R.id.rl_gesture})
+    @OnClick({R.id.rl_tag,R.id.rl_data,R.id.rl_password,R.id.rl_finger,R.id.rl_gesture,R.id.rl_colletct})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_tag:
@@ -40,6 +41,8 @@ public class MineFragment extends SimpleFragment {
                 Intent intentFinger = new Intent(context, FingerSetActivity.class);
                 startActivity(intentFinger);
                 break;
+            case R.id.rl_colletct:
+//                DbUtils.getInstance(context).removeData();
             default:
                 Toast.makeText(context,"没空做啊",Toast.LENGTH_SHORT).show();
         }

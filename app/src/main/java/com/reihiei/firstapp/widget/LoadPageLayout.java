@@ -68,9 +68,9 @@ public class LoadPageLayout extends LinearLayout implements NestedScrollingParen
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
 
-            if( child instanceof FrameLayout){
+            if (child instanceof FrameLayout) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) child.getLayoutParams();
-                layoutParams.height = getMeasuredHeight()/2;
+                layoutParams.height = getMeasuredHeight() / 2;
                 child.setLayoutParams(layoutParams);
 
             } else if (child instanceof RecyclerView) {
@@ -86,7 +86,7 @@ public class LoadPageLayout extends LinearLayout implements NestedScrollingParen
     @Override
     public void computeScroll() {
         super.computeScroll();
-        Log.d("zyy","computeScroll");
+        Log.d("zyy", "computeScroll");
         if (mLayoutScroller.computeScrollOffset()) {
             scrollTo(0, mLayoutScroller.getCurrY());
 //            postInvalidate();
@@ -211,11 +211,10 @@ public class LoadPageLayout extends LinearLayout implements NestedScrollingParen
 
                 if (dy > 0) {
                     pullUp(dy);
-                } else {
-                    if (getScrollY() >= 0) {
-                        scrollBy(0, dy);
-                    }
+                } else if (getScrollY() >= 0) {
+                    scrollBy(0, dy);
                 }
+
                 break;
             case MotionEvent.ACTION_UP:
 //                Log.d("zyy","up");
@@ -232,13 +231,13 @@ public class LoadPageLayout extends LinearLayout implements NestedScrollingParen
     private void pullFinish() {
         mLayoutScroller.startScroll(0, getScrollY(), 0, -getScrollY());
         postInvalidate();
-//
-//        if (getScrollY() >= 100) {
-//            Log.d("zyy", "finish");
-//            if (loadListener != null) {
-//                loadListener.loadFinish();
-//            }
-//        }
+
+        if (getScrollY() >= 100) {
+            Log.d("zyy", "finish");
+            if (loadListener != null) {
+                loadListener.loadFinish();
+            }
+        }
 
     }
 
